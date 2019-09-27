@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+COMPOSE="docker-compose"
+
+if [ $# -gt 0 ]; then
+    if [ "$1" == "up" ]; then
+        $COMPOSE up -d
+    elif [ "$1" == "reload" ] || [ "$1" == "restart" ] || [ "$1" == "rs" ] || [ "$1" == "rl" ]; then
+        $COMPOSE down && $COMPOSE up -d
+    elif [ "$1" == "bin/console" ]|| [ "$1" == "c" ] ; then
+        shift 1
+        EXEC_CMD="cd /var/www && php bin/console $@"
+        $COMPOSE exec webserver bash -c "$EXEC_CMD"
+    elif [ "$1" == "t" ]|| [ "$1" == "test" ]; then
+        shift 1
+        $COMPOSE exec webserver php /var/www/bin/phpunit --configuration /var/www/phpunit.xml.dist
+    elif [ "$1" == "composer" ]; then
+        shift 1
+        EXEC_CMD="cd /var/www && composer $@"
+        $COMPOSE exec -T webserver bash -c "$EXEC_CMD"
+    else
+        $COMPOSE $@
+    fi
+else
+    $COMPOSE ps
+fi

@@ -1,0 +1,9 @@
+webserver:
+  image: webdevops/php-nginx-dev:7.1
+  volumes:
+    - ./:/var/www
+  environment:
+    - WEB_DOCUMENT_ROOT=/var/www/public
+    - WEB_DOCUMENT_INDEX=index.php
+  ports:
+    - "80:80"
