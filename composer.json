@@ -1,5 +1,5 @@
 {
-    "type": "project",
+    "type": "Test o2o",
     "license": "proprietary",
     "require": {
         "php": "^7.1.3",
