@@ -2,20 +2,17 @@
 
 namespace App\Infrastructure\Recipe;
 
-
-use App\Domain\Model\Recipe;
 use App\Domain\Model\RecipeRepository;
-use App\Domain\SearchCriteria;
+use App\Domain\RecipeSearchCriteria;
 use App\Infrastructure\Utils\QueryBuilderTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
-use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerInterface as logger;
 use Psr\Log\LogLevel;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RecipePuppyRepository implements RecipeRepository
 {
@@ -30,9 +27,21 @@ class RecipePuppyRepository implements RecipeRepository
 
     private $logger;
 
-    public function __construct(LoggerInterface $logger)
+    /**
+     * @var RecipePuppyParamsConverter
+     */
+    private $paramsConverter;
+
+    /**
+     * @var RecipePuppyResponseConverter
+     */
+    private $recipeConverter;
+
+    public function __construct(LoggerInterface $logger, RecipePuppyParamsConverter $paramsConverter, RecipePuppyResponseConverter $recipeConverter)
     {
         $this->logger = $logger;
+        $this->paramsConverter = $paramsConverter;
+        $this->recipeConverter = $recipeConverter;
 
         $stack = HandlerStack::create();
         $stack->push(Middleware::log($this->logger, new MessageFormatter(), LogLevel::INFO));
@@ -42,45 +51,32 @@ class RecipePuppyRepository implements RecipeRepository
             'base_uri' => self::API_ENDPOINT,
             'handler' => $stack
         ]);
-
     }
 
-    public function findByText(SearchCriteria $searchCriteria)
+    /**
+     * @param RecipeSearchCriteria $searchCriteria
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function findByText(RecipeSearchCriteria $searchCriteria)
     {
         $results = [];
         try {
-            $response = $this->client->request('GET', $this->setParams($searchCriteria));
+            $response = $this->client->request('GET', $this->appendQuery('/api', $this->paramsConverter->transform($searchCriteria)));
 
             $data = $response->getBody();
 
             $result = json_decode($data, true);
             $results = [];
+
             foreach ($result["results"] as $item) {
-                array_push($results, new Recipe(
-                    $item["title"],
-                    $item["href"],
-                    explode(",", $item["ingredients"]),
-                    $item["thumbnail"]
-                ));
+                array_push($results, $this->recipeConverter->transform($item));
             }
-        } catch (\Exception $e) {
+
+        } catch (\Exception | NotFoundHttpException $e) {
             $this->logger->error($e->getMessage());
         } finally {
             return $results;
         }
     }
-
-    /**
-     * @param SearchCriteria $searchCriteria
-     * @return string
-     */
-    public function setParams(SearchCriteria $searchCriteria)
-    {
-        $q = $searchCriteria->getText() ?? null;
-        $i = ($searchCriteria->getIngredients()) ?  implode(',', $searchCriteria->getIngredients()) : null;
-        $p = $searchCriteria->getPage() ?? null;
-
-        return $this->appendQuery('/api', compact('q','p', 'i'));
-    }
-
 }
