@@ -2,9 +2,13 @@
 
 namespace App\Domain\Model;
 
-use App\Domain\SearchCriteria;
+use App\Domain\RecipeSearchCriteria;
 
 interface RecipeRepository
 {
-    public function findByText(SearchCriteria $searchCriteria);
+    /**
+     * @param SearchCriteria $searchCriteria
+     * @return array
+     */
+    public function findByText(RecipeSearchCriteria $searchCriteria);
 }

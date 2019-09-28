@@ -5,10 +5,10 @@ namespace App\Domain;
 /**
  * Value Object for search criterias
  *
- * Class SearchCriteria
+ * Class RecipeSearchCriteria
  * @package App\Domain
  */
-class SearchCriteria
+class RecipeSearchCriteria
 {
 
     /**
@@ -36,10 +36,10 @@ class SearchCriteria
 
     /**
      * Static search criteria factory
-     * @return SearchCriteria
+     * @return RecipeSearchCriteria
      */
     public static function instance() {
-        return new SearchCriteria();
+        return new RecipeSearchCriteria();
     }
 
     /**
@@ -72,7 +72,7 @@ class SearchCriteria
      * @param array $ingredients
      * @return SearchCriteria
      */
-    public function setIngredients(array $ingredients): SearchCriteria
+    public function setIngredients(array $ingredients): RecipeSearchCriteria
     {
         $this->ingredients = $ingredients;
         return $this;
@@ -90,7 +90,7 @@ class SearchCriteria
      * @param int $page
      * @return SearchCriteria
      */
-    public function setPage(int $page): SearchCriteria
+    public function setPage(int $page): RecipeSearchCriteria
     {
         $this->page = $page;
         return $this;
