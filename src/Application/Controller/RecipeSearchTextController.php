@@ -6,7 +6,7 @@ use App\Application\Service\SearchRecipesByText;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RecipeController extends AbstractController
+class RecipeSearchTextController extends AbstractController
 {
 
     /**
