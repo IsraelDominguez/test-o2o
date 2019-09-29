@@ -4,9 +4,9 @@ namespace App\Tests\Application\Service;
 
 use App\Application\Service\SearchRecipesByText;
 use App\Domain\Model\Recipe;
-use App\Infrastructure\Recipe\RecipePuppyParamsConverter;
-use App\Infrastructure\Recipe\RecipePuppyRepository;
-use App\Infrastructure\Recipe\RecipePuppyResponseConverter;
+use App\Infrastructure\Recipe\RecipePuppyApiProvider\RecipePuppyParamsConverter;
+use App\Infrastructure\Recipe\RecipePuppyApiProvider\RecipePuppyRepository;
+use App\Infrastructure\Recipe\RecipePuppyApiProvider\RecipePuppyResponseConverter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SearchRecipesByTextTest extends WebTestCase

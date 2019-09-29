@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Recipe;
+namespace App\Infrastructure\Recipe\RecipePuppyApiProvider;
 
 use App\Domain\Model\Recipe;
 
