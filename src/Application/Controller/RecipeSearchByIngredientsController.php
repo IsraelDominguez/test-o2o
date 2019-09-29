@@ -19,9 +19,7 @@ class RecipeSearchByIngredientsController extends AbstractController
             if (empty(trim($ingredients)))
                 throw new \Exception('Invalid Params');
 
-            $ingredients = explode(',', $ingredients);
-
-            $data = $searchRecipes->search($ingredients);
+            $data = $searchRecipes->search(str_word_count($ingredients,1));
 
         } catch (\Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);

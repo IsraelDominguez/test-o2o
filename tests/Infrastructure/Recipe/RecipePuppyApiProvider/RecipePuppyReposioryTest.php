@@ -46,7 +46,7 @@ class RecipePuppyRepositoryTest extends WebTestCase
 
     public function testErrorSearchThrowException()
     {
-        $recipes = $this->repository->search(null);
+        $recipes = $this->repository->search(RecipeSearchCriteria::instance()->setText('pesto')->setPage(0));
 
         $this->assertTrue(true);
     }

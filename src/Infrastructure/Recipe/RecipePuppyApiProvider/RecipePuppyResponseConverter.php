@@ -16,7 +16,7 @@ final class RecipePuppyResponseConverter
         return new Recipe(
             $puppyResponse["title"] ?? '',
             $puppyResponse["href"] ?? '',
-            isset($puppyResponse["ingredients"]) ? explode(",", $puppyResponse["ingredients"]) : [],
+            isset($puppyResponse["ingredients"]) ? explode(", ", trim($puppyResponse["ingredients"])) : [],
             $puppyResponse["thumbnail"] ?? '');
     }
 }

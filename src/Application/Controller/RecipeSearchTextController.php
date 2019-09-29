@@ -10,7 +10,7 @@ class RecipeSearchTextController extends AbstractController
 {
 
     /**
-     * @Route("/recipe/search/{text}", name="search_by_text", methods={"GET"})
+     * @Route("/recipe/searchByTitle/{text}", name="search_by_text", methods={"GET"})
      */
     public function search(string $text, SearchRecipesByText $searchByText)
     {
