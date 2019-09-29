@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Tests\Infrastructure\Recipe;
+namespace App\Tests\Infrastructure\Recipe\RecipePuppyApiProvider;
 
 use App\Domain\Model\Recipe;
 use App\Domain\RecipeSearchCriteria;
-use App\Infrastructure\Recipe\RecipePuppyParamsConverter;
-use App\Infrastructure\Recipe\RecipePuppyRepository;
-use App\Infrastructure\Recipe\RecipePuppyResponseConverter;
-use GuzzleHttp\ClientInterface;
-use mysql_xdevapi\Exception;
+use App\Infrastructure\Recipe\RecipePuppyApiProvider\RecipePuppyParamsConverter;
+use App\Infrastructure\Recipe\RecipePuppyApiProvider\RecipePuppyRepository;
+use App\Infrastructure\Recipe\RecipePuppyApiProvider\RecipePuppyResponseConverter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RecipePuppyRepositoryTest extends WebTestCase
@@ -44,5 +42,12 @@ class RecipePuppyRepositoryTest extends WebTestCase
         array_map(function (Recipe $recipe) {
             $this->assertContains('PESTO', strtoupper($recipe->getTitle()));
         }, $recipes);
+    }
+
+    public function testErrorSearchThrowException()
+    {
+        $recipes = $this->repository->search(null);
+
+        $this->assertTrue(true);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Infrastructure\Recipe;
+namespace App\Tests\Infrastructure\Recipe\RecipePuppyApiProvider;
 
 use App\Domain\Model\Recipe;
-use App\Infrastructure\Recipe\RecipePuppyResponseConverter;
+use App\Infrastructure\Recipe\RecipePuppyApiProvider\RecipePuppyResponseConverter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RecipePuppyResponseConverterTest extends WebTestCase
