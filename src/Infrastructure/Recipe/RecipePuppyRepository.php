@@ -58,7 +58,7 @@ class RecipePuppyRepository implements RecipeRepository
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function findByText(RecipeSearchCriteria $searchCriteria)
+    public function search(RecipeSearchCriteria $searchCriteria)
     {
         $results = [];
         try {
