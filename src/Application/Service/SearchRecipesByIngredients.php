@@ -5,7 +5,7 @@ namespace App\Application\Service;
 use App\Domain\Model\RecipeRepository;
 use App\Domain\RecipeSearchCriteria;
 
-class SearchRecipesByText
+class SearchRecipesByIngredients
 {
 
     /**
@@ -19,14 +19,14 @@ class SearchRecipesByText
     }
 
     /**
-     * Search recipes by text in title
+     * Search by list of ingredients
      *
-     * @param string $text
-     * @return array list of Recipes
+     * @param array $text
+     * @return mixed
      */
-    public function search(string $text)
+    public function search(array $ingredients)
     {
-        return $this->repository->search(RecipeSearchCriteria::instance()->setText($text));
+        return $this->repository->search(RecipeSearchCriteria::instance()->setIngredients($ingredients));
     }
 
 }

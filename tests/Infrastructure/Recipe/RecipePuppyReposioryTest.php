@@ -19,9 +19,7 @@ class RecipePuppyRepositoryTest extends WebTestCase
     public function setUp(): void
     {
         self::bootKernel();
-
         $this->repository = new RecipePuppyRepository(self::$container->get('logger'), new RecipePuppyParamsConverter(), new RecipePuppyResponseConverter());
-        //$container = self::$kernel->getContainer();
     }
 
     public function testCorrectInstance() {
@@ -29,13 +27,13 @@ class RecipePuppyRepositoryTest extends WebTestCase
     }
 
     public function testEmptyResponse() {
-        $recipes = $this->repository->findByText(RecipeSearchCriteria::instance()->setText('XXXXX'));
+        $recipes = $this->repository->search(RecipeSearchCriteria::instance()->setText('XXXXX'));
 
         $this->assertEmpty($recipes);
     }
 
     public function testArrayOfRecipesResponse() {
-        $recipes = $this->repository->findByText(RecipeSearchCriteria::instance()->setText('pesto'));
+        $recipes = $this->repository->search(RecipeSearchCriteria::instance()->setText('pesto'));
 
         $this->assertTrue(is_array($recipes));
         $this->assertEquals(10, count($recipes));

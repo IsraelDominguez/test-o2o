@@ -10,5 +10,5 @@ interface RecipeRepository
      * @param SearchCriteria $searchCriteria
      * @return array
      */
-    public function findByText(RecipeSearchCriteria $searchCriteria);
+    public function search(RecipeSearchCriteria $searchCriteria);
 }
