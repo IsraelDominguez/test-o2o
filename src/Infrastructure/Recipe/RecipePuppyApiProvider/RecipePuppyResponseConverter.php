@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Recipe;
+namespace App\Infrastructure\Recipe\RecipePuppyApiProvider;
 
 use App\Domain\Model\Recipe;
 
@@ -16,7 +16,7 @@ final class RecipePuppyResponseConverter
         return new Recipe(
             $puppyResponse["title"] ?? '',
             $puppyResponse["href"] ?? '',
-            isset($puppyResponse["ingredients"]) ? explode(",", $puppyResponse["ingredients"]) : [],
+            isset($puppyResponse["ingredients"]) ? explode(", ", trim($puppyResponse["ingredients"])) : [],
             $puppyResponse["thumbnail"] ?? '');
     }
 }

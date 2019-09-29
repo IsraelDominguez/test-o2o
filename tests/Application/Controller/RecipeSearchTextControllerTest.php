@@ -15,17 +15,17 @@ class RecipeSearchTextControllerTest extends WebTestCase
 
     public function testRecipeSearchTextNotPostMethod()
     {
-        $this->client->request('POST', '/recipe/search');
+        $this->client->request('POST', '/recipe/searchByTitle');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
     }
 
     public function testMandatorySearchText() {
-        $this->client->request('GET', '/recipe/search');
+        $this->client->request('GET', '/recipe/searchByTitle');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
     }
 
     public function testSearchText() {
-        $this->client->request('GET', '/recipe/search/pesto');
+        $this->client->request('GET', '/recipe/searchByTitle/pesto');
         $response = $this->client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());

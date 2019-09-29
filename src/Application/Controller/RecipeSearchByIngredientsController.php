@@ -15,15 +15,17 @@ class RecipeSearchByIngredientsController extends AbstractController
      */
     public function search(string $ingredients, SearchRecipesByIngredients $searchRecipes)
     {
-        $ingredients = explode(',', $ingredients);
+        try {
+            if (empty(trim($ingredients)))
+                throw new \Exception('Invalid Params');
 
-        if (is_array($ingredients)) {
-            $data = $searchRecipes->search($ingredients);
+            $data = $searchRecipes->search(str_word_count($ingredients,1));
 
-            return $this->json(['recipes'=>$data]);
-        } else {
-            return $this->json(['error'=>'invalid params'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Exception $e) {
+            return $this->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+        return $this->json(['recipes' => $data]);
     }
 
 }

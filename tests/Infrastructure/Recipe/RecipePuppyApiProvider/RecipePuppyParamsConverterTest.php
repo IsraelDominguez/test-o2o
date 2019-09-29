@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Infrastructure\Recipe;
+namespace App\Tests\Infrastructure\Recipe\RecipePuppyApiProvider;
 
 use App\Domain\RecipeSearchCriteria;
-use App\Infrastructure\Recipe\RecipePuppyParamsConverter;
+use App\Infrastructure\Recipe\RecipePuppyApiProvider\RecipePuppyParamsConverter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RecipePuppyParamsConverterTest extends WebTestCase
