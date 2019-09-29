@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "f9e0ea38-0bca-4af6-8983-ea44be934e48",
+		"name": "o2o-Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Full Search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/recipe/search?text=pesto&ingredients=pesto, garlic&page=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"recipe",
+						"search"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "pesto"
+						},
+						{
+							"key": "ingredients",
+							"value": "pesto, garlic"
+						},
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search By Title",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/recipe/searchByTitle/pesto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"recipe",
+						"searchByTitle",
+						"pesto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search By Ingredients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/recipe/ingredients/pesto,garlic",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"recipe",
+						"ingredients",
+						"pesto,garlic"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
